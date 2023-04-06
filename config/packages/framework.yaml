@@ -4,6 +4,10 @@ framework:
     #csrf_protection: true
     http_method_override: false
     handle_all_throwables: true
+    assets:
+        packages:
+            app:
+                base_path: ' C:\Users\nyah_\OneDrive\Documents\testbreakout3\projectSymfony1'
 
     # Enables session support. Note that the session will ONLY be started if you read or write from it.
     # Remove or comment this section to explicitly disable session support.
