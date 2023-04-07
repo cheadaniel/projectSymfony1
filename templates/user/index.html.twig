@@ -18,21 +18,35 @@
 	</style>
 
 	<div class="example-wrapper">
-		<h1>Pseudo : {{app.user.pseudo}}</h1>
-		<h2>Email : {{app.user.email}}</h2>
-		<h3>Amount : {{app.user.bank.amount}}</h3>
+		<h1>Pseudo :
+			{{app.user.pseudo}}</h1>
+		<h2>Email :
+			{{app.user.email}}</h2>
+		<h3>Amount :
+			{{app.user.bank.amount}}</h3>
 
 		{% for address in app.user.address %}
 			<h3>Adresse :</h3>
-            <ul>
-                <li>Street : {{ address.street }}</li>
-                <li>City : {{ address.city }}</li>
-                <li>Zip : {{ address.zip }}</li>
-            </ul>
+			<ul>
+				<li>Street :
+					{{ address.street }}</li>
+				<li>City :
+					{{ address.city }}</li>
+				<li>Zip :
+					{{ address.zip }}</li>
+			</ul>
+
+			<a href="{{path('edit_address',{'id':address.id})}}">
+			<button>Modifier une adresse</button>
+		</a>
+		<a href="{{path('delete_address',{'id':address.id})}}">
+			<button>Supprimer une adresse</button>
+		</a>
 		{% endfor %}
 
-		<a href="{{path('edit_address')}}">
+		<a href="{{path('create_address')}}">
 			<button>Ajouter une adresse</button>
 		</a>
+		
 	</div>
 {% endblock %}

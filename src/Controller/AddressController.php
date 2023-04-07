@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Address;
 use App\Form\AddressFormType;
+use App\Repository\AddressRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,8 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AddressController extends AbstractController
 {
-    #[Route('/address', name: 'edit_address')]
-    public function edit_address(Request $request,EntityManagerInterface $entityManager): Response
+    #[Route('/address/create', name: 'create_address')]
+    public function create_address(Request $request,EntityManagerInterface $entityManager): Response
     {
         $address =  new Address();
 
@@ -32,5 +33,31 @@ class AddressController extends AbstractController
         return $this->render('address/index.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
+    }
+
+    #[Route('/address/edit/{id}', name: 'edit_address',  methods: ['GET','POST'])]
+    public function edit_address (Request $request, AddressRepository $addressRepository, EntityManagerInterface $em, $id){
+        $post = $addressRepository->find($id);
+
+        //dd($post);
+        $form = $this->createForm(AddressFormType::class, $post);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            return $this->redirectToRoute('user_data');
+        }
+
+        return $this->render('address/index.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/address/delete/{id}', name: 'delete_address', methods: ['GET'])]
+    public function delete_address(AddressRepository $addressRepository, Address $address): Response
+    {
+        $addressRepository->remove($address, true);
+
+        return $this->redirectToRoute('user_data');
     }
 }
