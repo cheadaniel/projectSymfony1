@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Bank;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,10 +19,15 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
+        $bank = new Bank();
+
+        $bank->setAmount(1000);
+
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $bank->setUser($user);
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
@@ -29,8 +35,10 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setRoles(["ROLE_USER"]);
 
             $entityManager->persist($user);
+            $entityManager->persist($bank);
             $entityManager->flush();
             // do anything else you need here, like send an email
 

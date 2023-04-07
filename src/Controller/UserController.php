@@ -9,13 +9,13 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user/{id}', name: 'user_data')]
-    public function user(UserRepository $userRepository, $id): Response
+    #[Route('/user/dashboard', name: 'user_data')]
+    public function user(UserRepository $userRepository): Response
     {
-        $user = $userRepository->find($id);
+        // $user = $userRepository->find($id);
 
         return $this->render('user/index.html.twig', [
-            'user' => $user,
+            // 'user' => $user,
         ]);
     }
 }
