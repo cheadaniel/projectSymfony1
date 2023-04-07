@@ -1,0 +1,29 @@
+<div>
+	<h3>Mes annonces :</h3>
+	{% for annonce in app.user.annonce %}
+
+		<h4>Titre :
+			{{ annonce.name }}</h4>
+		<div>Description :
+			<p>
+				{{ annonce.description }}
+			</p>
+		</div>
+		<span>Prix :
+			{{ annonce.price }}</span>
+
+
+		<a href="{{path('edit_annonce',{'id':annonce.id})}}">
+			<button>Modifier une annonce</button>
+		</a>
+		<a href="{{path('delete_annonce',{'id':annonce.id})}}">
+			<button>Supprimer une annonce</button>
+		</a>
+	{% endfor %}
+
+	<div>
+		<a href="{{path('create_annonce')}}">
+			<button>Ajouter une annonce</button>
+		</a>
+	</div>
+</div>

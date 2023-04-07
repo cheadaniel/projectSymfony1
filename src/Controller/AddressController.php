@@ -30,7 +30,7 @@ class AddressController extends AbstractController
             return $this->redirectToRoute('user_data');
         }
 
-        return $this->render('address/index.html.twig', [
+        return $this->render('address/add.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
@@ -48,7 +48,7 @@ class AddressController extends AbstractController
             return $this->redirectToRoute('user_data');
         }
 
-        return $this->render('address/index.html.twig', [
+        return $this->render('address/edit.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }

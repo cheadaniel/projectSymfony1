@@ -22,7 +22,9 @@ class Acquisition
     private ?User $User = null;
 
     #[ORM\OneToOne(mappedBy: 'Acquisition', cascade: ['persist', 'remove'])]
-    private ?Annonce $Annonce = null;
+    private ?Annonce $annonce = null;
+
+    
 
     public function getId(): ?int
     {
@@ -55,18 +57,25 @@ class Acquisition
 
     public function getAnnonce(): ?Annonce
     {
-        return $this->Annonce;
+        return $this->annonce;
     }
 
-    public function setAnnonce(Annonce $Annonce): self
+    public function setAnnonce(?Annonce $annonce): self
     {
-        // set the owning side of the relation if necessary
-        if ($Annonce->getAcquisition() !== $this) {
-            $Annonce->setAcquisition($this);
+        // unset the owning side of the relation if necessary
+        if ($annonce === null && $this->annonce !== null) {
+            $this->annonce->setAcquisition(null);
         }
 
-        $this->Annonce = $Annonce;
+        // set the owning side of the relation if necessary
+        if ($annonce !== null && $annonce->getAcquisition() !== $this) {
+            $annonce->setAcquisition($this);
+        }
+
+        $this->annonce = $annonce;
 
         return $this;
     }
+
+
 }

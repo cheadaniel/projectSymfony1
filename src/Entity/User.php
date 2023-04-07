@@ -40,8 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Acquisition::class)]
     private Collection $Acquisition;
 
-    #[ORM\OneToMany(mappedBy: 'User', targetEntity: Annonce::class)]
-    private Collection $Annonce;
+    
 
     #[ORM\OneToMany(mappedBy: 'User', targetEntity: Commentary::class)]
     private Collection $Commentary;
@@ -49,12 +48,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $Pseudo = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Annonce::class)]
+    private Collection $Annonce;
+
     public function __construct()
     {
         $this->Address = new ArrayCollection();
         $this->Acquisition = new ArrayCollection();
-        $this->Annonce = new ArrayCollection();
+        
         $this->Commentary = new ArrayCollection();
+        $this->Annonce = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,35 +202,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Annonce>
-     */
-    public function getAnnonce(): Collection
-    {
-        return $this->Annonce;
-    }
-
-    public function addAnnonce(Annonce $annonce): self
-    {
-        if (!$this->Annonce->contains($annonce)) {
-            $this->Annonce->add($annonce);
-            $annonce->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAnnonce(Annonce $annonce): self
-    {
-        if ($this->Annonce->removeElement($annonce)) {
-            // set the owning side to null (unless already changed)
-            if ($annonce->getUser() === $this) {
-                $annonce->setUser(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
     /**
      * @return Collection<int, Commentary>
@@ -267,6 +242,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPseudo(string $Pseudo): self
     {
         $this->Pseudo = $Pseudo;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getAnnonce(): Collection
+    {
+        return $this->Annonce;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->Annonce->contains($annonce)) {
+            $this->Annonce->add($annonce);
+            $annonce->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->Annonce->removeElement($annonce)) {
+            // set the owning side to null (unless already changed)
+            if ($annonce->getUser() === $this) {
+                $annonce->setUser(null);
+            }
+        }
 
         return $this;
     }

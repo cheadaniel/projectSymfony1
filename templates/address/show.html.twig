@@ -1,0 +1,26 @@
+<div>
+	{% for address in app.user.address %}
+		<h3>Adresse :</h3>
+		<ul>
+			<li>Street :
+				{{ address.street }}</li>
+			<li>City :
+				{{ address.city }}</li>
+			<li>Zip :
+				{{ address.zip }}</li>
+		</ul>
+
+		<a href="{{path('edit_address',{'id':address.id})}}">
+			<button>Modifier une adresse</button>
+		</a>
+		<a href="{{path('delete_address',{'id':address.id})}}">
+			<button>Supprimer une adresse</button>
+		</a>
+	{% endfor %}
+
+	<div>
+		<a href="{{path('create_address')}}">
+			<button>Ajouter une adresse</button>
+		</a>
+	</div>
+</div>

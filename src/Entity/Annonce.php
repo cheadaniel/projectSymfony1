@@ -19,24 +19,22 @@ class Annonce
     #[ORM\Column(length: 255)]
     private ?string $Name = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $Description = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: '0')]
     private ?string $Price = null;
 
     #[ORM\Column]
-    private ?bool $Is_visible = null;
+    private ?bool $is_visible = null;
 
     #[ORM\ManyToOne(inversedBy: 'Annonce')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $User = null;
+    private ?User $user = null;
 
-    #[ORM\OneToOne(inversedBy: 'Annonce', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\OneToOne(inversedBy: 'annonce', cascade: ['persist', 'remove'])]
     private ?Acquisition $Acquisition = null;
 
-    #[ORM\OneToMany(mappedBy: 'Annonce', targetEntity: Commentary::class)]
+    #[ORM\OneToMany(mappedBy: 'annonce', targetEntity: Commentary::class)]
     private Collection $Commentary;
 
     public function __construct()
@@ -66,7 +64,7 @@ class Annonce
         return $this->Description;
     }
 
-    public function setDescription(?string $Description): self
+    public function setDescription(string $Description): self
     {
         $this->Description = $Description;
 
@@ -87,24 +85,24 @@ class Annonce
 
     public function isIsVisible(): ?bool
     {
-        return $this->Is_visible;
+        return $this->is_visible;
     }
 
-    public function setIsVisible(bool $Is_visible): self
+    public function setIsVisible(bool $is_visible): self
     {
-        $this->Is_visible = $Is_visible;
+        $this->is_visible = $is_visible;
 
         return $this;
     }
 
     public function getUser(): ?User
     {
-        return $this->User;
+        return $this->user;
     }
 
-    public function setUser(?User $User): self
+    public function setUser(?User $user): self
     {
-        $this->User = $User;
+        $this->user = $user;
 
         return $this;
     }
@@ -114,7 +112,7 @@ class Annonce
         return $this->Acquisition;
     }
 
-    public function setAcquisition(Acquisition $Acquisition): self
+    public function setAcquisition(?Acquisition $Acquisition): self
     {
         $this->Acquisition = $Acquisition;
 

@@ -17,12 +17,15 @@ class Commentary
     #[ORM\Column(type: Types::TEXT)]
     private ?string $Text = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Commentary')]
-    private ?Annonce $Annonce = null;
+    
 
     #[ORM\ManyToOne(inversedBy: 'Commentary')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $User = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Commentary')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Annonce $annonce = null;
 
     public function getId(): ?int
     {
@@ -41,17 +44,7 @@ class Commentary
         return $this;
     }
 
-    public function getAnnonce(): ?Annonce
-    {
-        return $this->Annonce;
-    }
-
-    public function setAnnonce(?Annonce $Annonce): self
-    {
-        $this->Annonce = $Annonce;
-
-        return $this;
-    }
+    
 
     public function getUser(): ?User
     {
@@ -61,6 +54,18 @@ class Commentary
     public function setUser(?User $User): self
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    public function getAnnonce(): ?Annonce
+    {
+        return $this->annonce;
+    }
+
+    public function setAnnonce(?Annonce $annonce): self
+    {
+        $this->annonce = $annonce;
 
         return $this;
     }
