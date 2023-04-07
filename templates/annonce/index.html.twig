@@ -23,7 +23,7 @@
 				<div>
 					<h4>{{annonce.name}}</h4>
 					<div>{{annonce.description}}</div>
-					<span>{{annonce.price}}</span>
+					<span>{{annonce.price}}€</span>
                     <p>Annonce de : {{annonce.getUser.pseudo}}</p>
                     <p>Contacter : {{annonce.getUser.email}}</p>
                     <a href="{{path('annonce',{'id':annonce.id})}}"><button>Voir l'annonce</button></a>
