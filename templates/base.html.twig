@@ -18,12 +18,23 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
+
 	<body>
+	{# ceci est un commentaire #}
+		<nav>
+			<ul>
+				<li>
+					<a href="{{path('annonces')}}">Annonces</a></li>
+				<li>
+					<a href="{{path('user_data')}}">Mon compte</a></li>
+				<li>
+					<a href="{{path('app_logout')}}">
+						Logout
+					</a>
+				</li>
+			</ul>
+		</nav>
 
-
-		<a href="{{path('app_logout')}}">
-			<button>Logout</button>
-		</a>
 
 		{% block body %}
 			<h1>Coucou</h1>
